@@ -27,6 +27,13 @@ M.setup = function(opts)
             cached_associations.linters =
                 vim.tbl_deep_extend('force', cached_associations.linters or {},
                     opts.overrides == nil and {} or opts.overrides.linters)
+            -- Invoke callbacks
+            if opts.on_formatters then
+                opts.on_formatters(cached_associations.formatters)
+            end
+            if opts.on_linters ~= nil then
+                opts.on_linters(cached_associations.linters)
+            end
         end)
     end
 
